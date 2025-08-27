@@ -1,5 +1,9 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 DJANGO_SECURE = os.getenv("DJANGO_SECURE", "false").lower() == "true"
 
@@ -19,7 +23,7 @@ PASSWORD_HASHERS = [
 ]
 
 # Sessions sécurisées
-SESSION_COOKIE_AGE = 3600  # 1 heure
+SESSION_COOKIE_AGE = 3600  # 1h
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = DJANGO_SECURE
 CSRF_COOKIE_SECURE = DJANGO_SECURE
@@ -31,6 +35,10 @@ SECURE_SSL_REDIRECT = DJANGO_SECURE
 SECURE_HSTS_SECONDS = 31536000 if DJANGO_SECURE else 0
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = DJANGO_SECURE
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "login"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -73,9 +81,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = "secure_auth.urls"
 
 TEMPLATES = [
-    {
+    {   
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
