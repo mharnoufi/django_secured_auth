@@ -1,0 +1,21 @@
+# Environnement virtuel
+.venv/
+env/
+venv/
+
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+media/
+
+# Configs locales
+.env
+*.log
+
+# macOS
+.DS_Store
